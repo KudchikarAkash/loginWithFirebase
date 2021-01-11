@@ -1,14 +1,30 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
-
+import firebase from 'firebase';
 // create a component
 class EmailAndPassword extends Component {
     state={
         email:'',
         password:'',
-        error:'Login failed'
+        error:'',
+        loading:false
     }
+    onButtonPress=()=>{
+        firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+        .then(this.onLoginSuccess)
+        .catch(err=>{
+            this.setState({
+                error: err.message
+            })
+        })
+    }
+    onLoginSuccess =() =>{
+        this.setState({
+            error:'',
+            loading:false
+        })
+    }   
     render() {
         return (
             <View style={styles.container}>
@@ -26,7 +42,7 @@ class EmailAndPassword extends Component {
                 secureTextEntry={true}
                 />
 
-            <TouchableOpacity style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.buttonContainer} onPress={this.onButtonPress}>
                 <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
                 <Text style={styles.errText}>

@@ -1,7 +1,7 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-
+import firebase from 'firebase';
 // create a component
 const ArticleScreen = () => {
     return (
@@ -13,7 +13,7 @@ const ArticleScreen = () => {
                 <Text style={styles.content}>
                     your are login from firebase 
                 </Text>
-                <TouchableOpacity style={{padding:20}}>
+                <TouchableOpacity style={{padding:20}} onPress={()=>firebase.auth().signOut()} >
                     <Text style={styles.logout}>Logout</Text>
                 </TouchableOpacity>
             </View>
