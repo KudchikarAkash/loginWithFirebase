@@ -1,23 +1,38 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import firebase from 'firebase';
+import {NavigationContainer, DrawerActions} from '@react-navigation/native';
+//import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createDrawerNavigator} from '@react-navigation/drawer'
+import HomeScreen from './Home';
 // create a component
+const Drawer = createDrawerNavigator();
+
+const SettingsScreen = ({navigation}) =>{
+    return(
+        <View>
+        <Text>SettingsScreen</Text>
+        <Button title="goBack" onPress={()=> navigation.dispatch(DrawerActions.openDrawer())} />
+    </View>
+    )  
+}
+const Logout = ()=>{
+    return(
+        <TouchableOpacity onPress={firebase.auth().signOut()}>
+            <Text>Logout</Text>
+        </TouchableOpacity>
+    )
+}
 const ArticleScreen = () => {
     return (
-        <View style={styles.container}>
-            <View style={styles.articleContainer}>
-                <Text style={styles.heading}>
-                    Welcome to authorized screen
-                </Text>
-                <Text style={styles.content}>
-                    your are login from firebase 
-                </Text>
-                <TouchableOpacity style={{padding:20}} onPress={()=>firebase.auth().signOut()} >
-                    <Text style={styles.logout}>Logout</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
+        <NavigationContainer>
+            <Drawer.Navigator>
+                <Drawer.Screen name="Home" component={HomeScreen} />
+                <Drawer.Screen name="Settings" component={SettingsScreen} />
+                <Drawer.Screen name="Logout" component={Logout} />
+            </Drawer.Navigator>
+        </NavigationContainer>
     );
 };
 

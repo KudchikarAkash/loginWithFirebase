@@ -1,12 +1,13 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 
 // create a component
-const LoadingScreen = () => {
+const ChatScreen = () => {
     return (
         <View style={styles.container}>
-            <ActivityIndicator size="large" />
+            <Text>ChatScreen</Text>
+            
         </View>
     );
 };
@@ -17,8 +18,9 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        
     },
 });
 
 //make this component available to the app
-export default LoadingScreen;
+export default ChatScreen;
